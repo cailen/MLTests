@@ -19,7 +19,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "my_bucket" {
-  bucket_prefix = "my_bucket"
+  bucket_prefix = "my-bucket"
   acl           = "private"
 }
 
