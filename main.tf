@@ -6,11 +6,13 @@ terraform {
       version = ">= 4.0.0"
     }
   }
-  backend "s3" {
-    bucket = "derek-terraform-04052022"
-    key    = "terraform.tfstate"
-    region = "us-east-2"
+  cloud {
+    organization = "example-org-d0589e"
+    hostname = "app.terraform.io" # Optional; defaults to app.terraform.io
 
+    workspaces {
+      tags = ["test", "source:cli"]
+    }
   }
 }
 
