@@ -89,16 +89,16 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       id: init
-      run: terraform init
+      run: terraform init -nocolor
 
     - name: Terraform Validate
       id: validate
-      run: terraform validate
+      run: terraform validate -nocolor
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -input=false
+      run: terraform plan -input=false -nocolor
 
     - name: Post Comment
       uses: actions/github-script@v6
