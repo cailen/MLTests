@@ -93,12 +93,12 @@ jobs:
 
     - name: Terraform Validate
       id: validate
-      run: terraform validate -no-color
+      run: terraform validate -no-color -compact-warnings
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -input=false -no-color
+      run: terraform plan -input=false -no-color -compact-warnings
 
     - name: Post Comment
       uses: actions/github-script@v6
