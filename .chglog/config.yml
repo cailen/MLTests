@@ -1,27 +1,51 @@
+bin: git
 style: github
 template: CHANGELOG.tpl.md
 info:
   title: CHANGELOG
   repository_url: https://github.com/cailen/MLTests
 options:
+  # tag_filter_pattern: '^v'
+  sort: "date"
+
   commits:
     filters:
       Type:
         - feat
-        - fix
-        - perf
-        - refactor
+    sort_by: Scope
+
   commit_groups:
+    group_by: Type
+    sort_by: Title
+    title_order:
+      - feat
     title_maps:
       feat: Features
-      fix: Bug Fixes
-      perf: Performance Improvements
-      refactor: Code Refactoring
+
   header:
-    pattern: "^(\\w*)\\:\\s(.*)$"
+    pattern: "<regexp>"
     pattern_maps:
-      - Type
-      - Subject
+      - PropName
+
+  issues:
+    prefix:
+      - #
+
+  refs:
+    actions:
+      - Closes
+      - Fixes
+
+  merges:
+    pattern: "^Merge branch '(\\w+)'$"
+    pattern_maps:
+      - Source
+
+  reverts:
+    pattern: "^Revert \"([\\s\\S]*)\"$"
+    pattern_maps:
+      - Header
+
   notes:
     keywords:
       - BREAKING CHANGE
