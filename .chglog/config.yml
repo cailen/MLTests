@@ -5,7 +5,7 @@ info:
   title: CHANGELOG
   repository_url: https://github.com/cailen/MLTests
 options:
-  # tag_filter_pattern: '^v'
+  tag_filter_pattern: '^v'
   sort: "date"
 
   commits:
