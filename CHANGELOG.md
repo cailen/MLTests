@@ -1,4 +1,13 @@
 <a name="unreleased"></a>
+## 1.0.0 (2023-04-11)
+
+
+### Features
+
+* hello ([e075e04](https://github.com/cailen/MLTests/commit/e075e04c355e2cafc40211664880e4ed8f18b415))
+* Helloooo deary ([3e85487](https://github.com/cailen/MLTests/commit/3e854878f1e151d152c158433149049a36deb07b))
+* release please ([a50e756](https://github.com/cailen/MLTests/commit/a50e756a2c8313370f1588955da554881a75bc51))
+
 ## [Unreleased]
 
 
