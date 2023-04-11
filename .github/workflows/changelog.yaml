@@ -1,25 +1,43 @@
-name: Update Changelog
+# name: Update Changelog
+# on:
+#   release:
+#     types: [published]
+# jobs:
+#   updateChangelog:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+#       - name: Update Changelog
+#         run: |
+#           curl -o git-chglog -L https://github.com/git-chglog/git-chglog/releases/download/0.9.1/git-chglog_linux_amd64
+#           chmod u+x git-chglog
+#           ./git-chglog -o CHANGELOG.md
+#           rm git-chglog
+#       - name: Create Pull Request
+#         uses: peter-evans/create-pull-request@v5
+#         with:
+#           commit-message: update changelog
+#           title: Update Changelog
+#           body: Update changelog to reflect release changes
+#           branch: update-changelog
+#           base: main
+name: Release Please
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
 jobs:
-  updateChangelog:
+  release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: google-github-actions/release-please-action@v3
         with:
-          fetch-depth: 0
-      - name: Update Changelog
-        run: |
-          curl -o git-chglog -L https://github.com/git-chglog/git-chglog/releases/download/0.9.1/git-chglog_linux_amd64
-          chmod u+x git-chglog
-          ./git-chglog -o CHANGELOG.md
-          rm git-chglog
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          commit-message: update changelog
-          title: Update Changelog
-          body: Update changelog to reflect release changes
-          branch: update-changelog
-          base: main
+          release-type: simple
+          package-name: release-please-action
+          changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Miscellaneous","hidden":false}]'
