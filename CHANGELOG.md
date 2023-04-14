@@ -1,4 +1,15 @@
 <a name="unreleased"></a>
+## [2.0.0](https://github.com/cailen/MLTests/compare/v1.0.0...v2.0.0) (2023-04-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **actions:** test
+
+### Bug Fixes
+
+* **actions:** dependabot ([#15](https://github.com/cailen/MLTests/issues/15)) ([6145cc4](https://github.com/cailen/MLTests/commit/6145cc4bd41c16a61127a543eecc01e85beaee0d))
+
 ## 1.0.0 (2023-04-11)
 
 
