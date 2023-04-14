@@ -1,5 +1,12 @@
 name: Pylint
-on: [push]
+on: 
+  push:
+    paths:
+      - '**.py'
+      - 'requirements.txt'
+      - 'tox.ini'
+      - '.github/workflows/pylint.yml'
+
 jobs:
   build:
     runs-on: ubuntu-latest
