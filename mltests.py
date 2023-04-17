@@ -11,7 +11,7 @@ from torchvision.io import read_image
 import os
 
 # PyTorch TensorBoard support
-from torch.utils.tensorboard import SummaryWriter
+from torch.utils.tensorboard.writer import SummaryWriter
 from datetime import datetime
 
 
@@ -453,5 +453,5 @@ for epoch in range(EPOCHS):
 
     epoch_number += 1
 
-saved_model = GarmentClassifier()
-saved_model.load_state_dict(torch.load(PATH))
+# saved_model = GarmentClassifier()
+# saved_model.load_state_dict(torch.load(PATH))
