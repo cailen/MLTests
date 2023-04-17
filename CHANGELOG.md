@@ -1,4 +1,11 @@
 <a name="unreleased"></a>
+## [2.0.1](https://github.com/cailen/MLTests/compare/v2.0.0...v2.0.1) (2023-04-17)
+
+
+### Miscellaneous
+
+* clean up ([0d25a8f](https://github.com/cailen/MLTests/commit/0d25a8fce712c9dae18cf464afb4bae1606d1218))
+
 ## [2.0.0](https://github.com/cailen/MLTests/compare/v1.0.0...v2.0.0) (2023-04-14)
 
 
