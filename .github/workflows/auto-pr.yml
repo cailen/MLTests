@@ -1,5 +1,8 @@
-name: autopep8
+name: fixstuff
 on: pull_request
+permissions:
+  contents: write
+  pull-requests: write
 jobs:
   terraform-docs:
     # Check if the PR is not raised by this workflow and is not from a fork
