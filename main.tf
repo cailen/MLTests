@@ -31,3 +31,9 @@ resource "aws_s3_bucket_public_access_block" "my_bucket" {
   block_public_acls   = true
   block_public_policy = true
 }
+
+resource "null_resource" "my_resource" {
+  triggers = {
+    bucket_id = aws_s3_bucket.my_bucket.id
+  }
+}
