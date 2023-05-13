@@ -1,7 +1,9 @@
+import os
 import openai
 from PIL import Image
 
-openai.api_key = "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"
+
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 # convert png rgb to png rgba
 img = Image.open('IMG_4567.png')
