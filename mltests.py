@@ -101,17 +101,11 @@ from datetime import datetime
 
 
 training_data = datasets.FashionMNIST(
-    root="data",
-    train=True,
-    download=True,
-    transform=ToTensor()
+    root="data", train=True, download=True, transform=ToTensor()
 )
 
 test_data = datasets.FashionMNIST(
-    root="data",
-    train=False,
-    download=True,
-    transform=ToTensor()
+    root="data", train=False, download=True, transform=ToTensor()
 )
 
 labels_map = {
@@ -140,11 +134,8 @@ cols, rows = 3, 3
 
 class CustomImageDataset(Dataset):
     def __init__(
-            self,
-            annotations_file,
-            img_dir,
-            transform=None,
-            target_transform=None):
+        self, annotations_file, img_dir, transform=None, target_transform=None
+    ):
         self.img_labels = pd.read_csv(annotations_file)
         self.img_dir = img_dir
         self.transform = transform
@@ -229,12 +220,7 @@ print(f"Before ReLU: {hidden1}\n\n")
 hidden1 = nn.ReLU()(hidden1)
 print(f"After ReLU: {hidden1}")
 
-seq_modules = nn.Sequential(
-    flatten,
-    layer1,
-    nn.ReLU(),
-    nn.Linear(20, 10)
-)
+seq_modules = nn.Sequential(flatten, layer1, nn.ReLU(), nn.Linear(20, 10))
 input_image = torch.rand(3, 28, 28)
 logits = seq_modules(input_image)
 
@@ -292,7 +278,7 @@ print(more_integers)
 a = torch.ones((2, 3), dtype=torch.int16)
 print(a)
 
-b = torch.rand((2, 3), dtype=torch.float64) * 20.
+b = torch.rand((2, 3), dtype=torch.float64) * 20.0
 print(b)
 
 c = b.to(torch.int32)
@@ -301,8 +287,8 @@ print(c)
 ones = torch.zeros(2, 2) + 1
 twos = torch.ones(2, 2) * 2
 threes = (torch.ones(2, 2) * 7 - 1) / 2
-fours = twos ** 2
-sqrt2s = twos ** 0.5
+fours = twos**2
+sqrt2s = twos**0.5
 
 print(ones)
 print(twos)
@@ -320,38 +306,45 @@ dozens = threes * fours
 print(dozens)
 
 transform = transforms.Compose(
-    [transforms.ToTensor(),
-     transforms.Normalize((0.5,), (0.5,))])
+    [transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))]
+)
 
 # Create datasets for training & validation, download if necessary
 training_set = datasets.FashionMNIST(
-    './data',
-    train=True,
-    transform=transform,
-    download=True)
+    "./data", train=True, transform=transform, download=True
+)
 validation_set = datasets.FashionMNIST(
-    './data',
-    train=False,
-    transform=transform,
-    download=True)
+    "./data", train=False, transform=transform, download=True
+)
 
 # Create data loaders for our datasets; shuffle for training, not for
 # validation
-training_loader = torch.utils.data.DataLoader(
-    training_set, batch_size=4, shuffle=True)
+training_loader = torch.utils.data.DataLoader(training_set, batch_size=4, shuffle=True)
 validation_loader = torch.utils.data.DataLoader(
-    validation_set, batch_size=4, shuffle=False)
+    validation_set, batch_size=4, shuffle=False
+)
 
 # Class labels
-classes = ('T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
-           'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle Boot')
+classes = (
+    "T-shirt/top",
+    "Trouser",
+    "Pullover",
+    "Dress",
+    "Coat",
+    "Sandal",
+    "Shirt",
+    "Sneaker",
+    "Bag",
+    "Ankle Boot",
+)
 
 # Report split sizes
-print('Training set has {} instances'.format(len(training_set)))
-print('Validation set has {} instances'.format(len(validation_set)))
+print("Training set has {} instances".format(len(training_set)))
+print("Validation set has {} instances".format(len(validation_set)))
 
 
 # PyTorch models inherit from torch.nn.Module
+
 
 class GarmentClassifier(nn.Module):
     def __init__(self):
@@ -387,15 +380,15 @@ print(dummy_outputs)
 print(dummy_labels)
 
 loss = loss_fn(dummy_outputs, dummy_labels)
-print('Total loss for this batch: {}'.format(loss.item()))
+print("Total loss for this batch: {}".format(loss.item()))
 
 # Optimizers specified in the torch.optim package
 optimizer = torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 
 
 def train_one_epoch(epoch_index, tb_writer):
-    running_loss = 0.
-    last_loss = 0.
+    running_loss = 0.0
+    last_loss = 0.0
 
     # Here, we use enumerate(training_loader) instead of
     # iter(training_loader) so that we can track the batch
@@ -421,26 +414,26 @@ def train_one_epoch(epoch_index, tb_writer):
         running_loss += loss.item()
         if i % 1000 == 999:
             last_loss = running_loss / 1000  # loss per batch
-            print('  batch {} loss: {}'.format(i + 1, last_loss))
+            print("  batch {} loss: {}".format(i + 1, last_loss))
             tb_x = epoch_index * len(training_loader) + i + 1
-            tb_writer.add_scalar('Loss/train', last_loss, tb_x)
-            running_loss = 0.
+            tb_writer.add_scalar("Loss/train", last_loss, tb_x)
+            running_loss = 0.0
 
     return last_loss
 
 
 # Initializing in a separate cell so we can easily add more epochs to the
 # same run
-timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-writer = SummaryWriter('runs/fashion_trainer_{}'.format(timestamp))
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+writer = SummaryWriter("runs/fashion_trainer_{}".format(timestamp))
 epoch_number = 0
 
 EPOCHS = 5
 
-best_vloss = 1_000_000.
+best_vloss = 1_000_000.0
 
 for epoch in range(EPOCHS):
-    print('EPOCH {}:'.format(epoch_number + 1))
+    print("EPOCH {}:".format(epoch_number + 1))
 
     # Make sure gradient tracking is on, and do a pass over the data
     model.train(True)
@@ -457,19 +450,21 @@ for epoch in range(EPOCHS):
         running_vloss += vloss
 
     avg_vloss = running_vloss / (i + 1)
-    print('LOSS train {} valid {}'.format(avg_loss, avg_vloss))
+    print("LOSS train {} valid {}".format(avg_loss, avg_vloss))
 
     # Log the running loss averaged per batch
     # for both training and validation
-    writer.add_scalars('Training vs. Validation Loss',
-                       {'Training': avg_loss, 'Validation': avg_vloss},
-                       epoch_number + 1)
+    writer.add_scalars(
+        "Training vs. Validation Loss",
+        {"Training": avg_loss, "Validation": avg_vloss},
+        epoch_number + 1,
+    )
     writer.flush()
 
     # Track best performance, and save the model's state
     if avg_vloss < best_vloss:
         best_vloss = avg_vloss
-        model_path = 'model_{}_{}'.format(timestamp, epoch_number)
+        model_path = "model_{}_{}".format(timestamp, epoch_number)
         torch.save(model.state_dict(), model_path)
 
     epoch_number += 1
