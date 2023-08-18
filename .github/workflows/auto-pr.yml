@@ -25,30 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-      - name: black
-        id: black
-        uses: psf/black@stable
-        with:
-          args: --check --diff .
-      - name: Set black branch name
-        id: vars
-        run: |
-          branch-name="black-patches/${{ github.head_ref }}"
-          echo "branch-name=$branch-name" >> $GITHUB_OUTPUT
-      - name: Create Pull Request
-        if: steps.black.outputs.exit-code == 1
-        uses: peter-evans/create-pull-request@v5
-        with:
-          commit-message: black action fixes
-          title: Fixes by black action
-          body: This is an auto-generated PR with fixes by black.
-          labels: black, automated pr
-          branch: ${{ steps.vars.outputs.branch-name }}
-      - name: Fail if black made changes
-        if: steps.black.outputs.exit-code == 1
-        run: exit 1
+      - uses: psf/black@stable
   autopep8:
     # Check if the PR is not raised by this workflow and is not from a fork
     if: startsWith(github.head_ref, 'autopep8-patches') == false && github.event.pull_request.head.repo.full_name == github.repository
@@ -65,8 +42,8 @@ jobs:
       - name: Set autopep8 branch name
         id: vars
         run: |
-          branch-name="autopep8-patches/${{ github.head_ref }}"
-          echo "branch-name=$branch-name" >> $GITHUB_OUTPUT
+          branch_name="autopep8-patches/${{ github.head_ref }}"
+          echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
       - name: Create Pull Request
         if: steps.autopep8.outputs.exit-code == 2
         uses: peter-evans/create-pull-request@v5
@@ -75,7 +52,7 @@ jobs:
           title: Fixes by autopep8 action
           body: This is an auto-generated PR with fixes by autopep8.
           labels: autopep8, automated pr
-          branch: ${{ steps.vars.outputs.branch-name }}
+          branch: ${{ steps.vars.outputs.branch_name }}
       - name: Fail if autopep8 made changes
         if: steps.autopep8.outputs.exit-code == 2
         run: exit 1
