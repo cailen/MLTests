@@ -6,6 +6,7 @@ on:
 
 permissions:
   issues: write
+  pull-requests: write
 
 jobs:
   assign:
@@ -13,9 +14,8 @@ jobs:
 
     steps:
       - name: Assign PR to Creator
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const pr = context.payload.pull_request
             const creator = pr.user.login
