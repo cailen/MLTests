@@ -319,7 +319,8 @@ validation_set = datasets.FashionMNIST(
 
 # Create data loaders for our datasets; shuffle for training, not for
 # validation
-training_loader = torch.utils.data.DataLoader(training_set, batch_size=4, shuffle=True)
+training_loader = torch.utils.data.DataLoader(
+    training_set, batch_size=4, shuffle=True)
 validation_loader = torch.utils.data.DataLoader(
     validation_set, batch_size=4, shuffle=False
 )
