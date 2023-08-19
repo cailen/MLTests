@@ -1,0 +1,38 @@
+name: Terraform Docs
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  terraform-docs:
+    # Check if the PR is not raised by this workflow and is not from a fork
+    if: startsWith(github.head_ref, 'terraform-docs-patches') == false && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Render terraform docs inside the README.md and push changes back to PR branch
+        id: tfdocs
+        uses: terraform-docs/gh-actions@v1.0.0
+        with:
+          working-dir: .
+          output-file: README.md
+          output-method: inject
+          git-push: false
+          recursive: true
+      - name: Set terraform-docs branch name
+        id: vars
+        run: |
+          branch_name="terraform-docs-patches/${{ github.head_ref }}"
+          echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
+      - name: Create Pull Request
+        if: steps.tfdocs.outputs.num_changed > 0
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: terraform-docs action fixes
+          title: Fixes by terraform-docs action
+          body: This is an auto-generated PR with fixes by terraform-docs.
+          labels: terraform-docs, automated pr
+          branch: ${{ steps.vars.outputs.branch_name }}

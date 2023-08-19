@@ -1,0 +1,39 @@
+name: Python Black
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  black:
+    # Check if the PR is not raised by this workflow and is not from a fork
+    if: startsWith(github.head_ref, 'black-patches') == false && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: check
+        id: check
+        uses: psf/black@stable
+      - name: run black
+        id: run
+        if: steps.check.outputs.exit-code == 1
+        uses: psf/black@stable
+        with:
+          options: --diff
+      - name: Set black branch name
+        id: vars
+        run: |
+          branch_name="black-patches/${{ github.head_ref }}"
+          echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: black action fixes
+          title: Fixes by black action
+          body: This is an auto-generated PR with fixes by black.
+          labels: black, automated pr
+          branch: ${{ steps.vars.outputs.branch_name }}
