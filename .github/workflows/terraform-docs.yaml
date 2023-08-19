@@ -19,7 +19,7 @@ jobs:
           output-file: README.md
           output-method: inject
           git-push: false
-          recursive: true
+          recursive: false
         continue-on-error: true
       - name: Set terraform-docs branch name
         if: always() && steps.tfdocs.outputs.num_changed > 0
