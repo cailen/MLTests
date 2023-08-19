@@ -37,3 +37,9 @@ resource "null_resource" "my_resource" {
     bucket_id = aws_s3_bucket.my_bucket.id
   }
 }
+
+resource "null_resource" "my_resource2" {
+  triggers = {
+    bucket_id = aws_s3_bucket.my_bucket.id
+  }
+}
