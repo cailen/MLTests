@@ -8,8 +8,6 @@ permissions:
   pull-requests: write
 jobs:
   terraform-docs:
-    # Check if the PR is not raised by this workflow and is not from a fork
-    if: startsWith(github.head_ref, 'terraform-docs-patches') == false && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
