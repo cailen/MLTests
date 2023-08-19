@@ -21,12 +21,13 @@ jobs:
           git-push: false
           recursive: true
       - name: Set terraform-docs branch name
+        if: always() && steps.tfdocs.outputs.num_changed > 0
         id: vars
         run: |
           branch_name="terraform-docs-patches/${{ github.head_ref }}"
           echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
       - name: Create Pull Request
-        if: steps.tfdocs.outputs.num_changed > 0
+        if: always() && steps.tfdocs.outputs.num_changed > 0
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: terraform-docs action fixes
