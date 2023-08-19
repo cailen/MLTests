@@ -16,6 +16,7 @@ jobs:
       - name: check
         id: check
         uses: psf/black@stable
+        continue-on-error: true
       - name: run black
         id: run
         if: always() && steps.check.outputs.exit-code == 1
