@@ -25,7 +25,7 @@ jobs:
         if: always() && steps.tfdocs.outputs.num_changed > 0
         id: vars
         run: |
-          branch_name="terraform-docs-patches/${{ github.head_ref }}"
+          branch_name="terraform-docs-patches"
           echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
       - name: Create Pull Request
         if: always() && steps.tfdocs.outputs.num_changed > 0
