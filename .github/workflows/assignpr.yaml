@@ -11,7 +11,6 @@ permissions:
 jobs:
   assign:
     runs-on: ubuntu-latest
-
     steps:
       - name: Assign PR to Creator
         uses: actions/github-script@v6

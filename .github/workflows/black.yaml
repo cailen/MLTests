@@ -19,12 +19,12 @@ jobs:
         continue-on-error: true
       - name: run black
         id: run
-        if: always() && steps.check.outputs.exit-code == 1
+        if: always() && steps.check.outcome == 'failure'
         uses: psf/black@stable
         with:
           options: --diff
       - name: Set black branch name
-        if: always() && steps.check.outputs.exit-code == 1
+        if: always() && steps.run.outcome == 'success'
         id: vars
         run: |
           branch_name="black-patches/${{ github.head_ref }}"
