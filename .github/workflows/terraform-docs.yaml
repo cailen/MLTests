@@ -19,7 +19,7 @@ jobs:
           output-file: README.md
           output-method: inject
           git-push: false
-          recursive: false
+          recursive: true
           recursive-path: .
         continue-on-error: true
       - name: Set terraform-docs branch name
