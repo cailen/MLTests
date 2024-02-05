@@ -30,7 +30,7 @@ jobs:
           echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
       - name: Create Pull Request
         if: always() && steps.tfdocs.outputs.num_changed > 0
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           commit-message: terraform-docs action fixes
           title: Fixes by terraform-docs action
